@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BlogBot | AI Writing Studio</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- =========================================
+             LEFT NAVIGATION
+        ========================================== -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-mark">B</div>
+
+                <div>
+                    <h2>BlogBot</h2>
+                    <span>Writing Studio</span>
+                </div>
+            </div>
+
+
+            <button class="new-project" id="newChatBtn">
+                <span>＋</span>
+                New Article
+            </button>
+
+
+            <nav class="navigation">
+
+                <p class="nav-title">WORKSPACE</p>
+
+                <button class="nav-item active">
+                    <span class="nav-icon">✦</span>
+
+                    <div>
+                        <strong>Article Writer</strong>
+                        <small>Create with AI</small>
+                    </div>
+                </button>
+
+
+                <button class="nav-item">
+                    <span class="nav-icon">◈</span>
+
+                    <div>
+                        <strong>Prompt Studio</strong>
+                        <small>Customize prompts</small>
+                    </div>
+                </button>
+
+
+                <button class="nav-item">
+                    <span class="nav-icon">⌁</span>
+
+                    <div>
+                        <strong>AI Assistant</strong>
+                        <small>Ask anything</small>
+                    </div>
+                </button>
+
+
+                <p class="nav-title second-title">TOOLS</p>
+
+
+                <button class="simple-nav">
+                    <span>▣</span>
+                    Saved Articles
+                </button>
+
+
+                <button class="simple-nav">
+                    <span>◷</span>
+                    Recent Work
+                </button>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <div class="connection">
+                    <span class="connection-dot"></span>
+
+                    <div>
+                        <strong>AI Engine Online</strong>
+                        <small>Ollama connected</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================================
+             MAIN AREA
+        ========================================== -->
+
+        <main class="main">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <div class="breadcrumb">
+                    Workspace
+                    <span>/</span>
+                    <strong>Article Writer</strong>
+                </div>
+
+
+                <div class="top-actions">
+
+                    <div class="engine">
+                        <span class="engine-dot"></span>
+                        Llama 3.2
+                    </div>
+
+                    <button class="icon-button" title="Help">
+                        ?
+                    </button>
+
+                    <div class="profile">
+                        J
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =========================================
+                 PAGE CONTENT
+            ========================================== -->
+
+            <section class="workspace">
+
+                <!-- INTRO -->
+
+                <div class="intro">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            AI CONTENT CREATOR
+                        </span>
+
+                        <h1>
+                            Create something worth reading.
+                        </h1>
+
+                        <p>
+                            Give BlogBot your idea and preferences.
+                            We'll turn them into a polished article.
+                        </p>
+
+                    </div>
+
+                    <div class="intro-number">
+                        <span>01</span>
+                        <small>ARTICLE</small>
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     GENERATOR CARD
+                ====================================== -->
+
+                <section class="generator-card">
+
+
+                    <div class="card-heading">
+
+                        <div>
+                            <span class="step-label">STEP 01</span>
+
+                            <h2>
+                                Tell us about your article
+                            </h2>
+
+                            <p>
+                                Start with a topic and customize the writing style.
+                            </p>
+                        </div>
+
+                        <div class="heading-symbol">
+                            ✎
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOPIC -->
+
+                    <div class="field topic-field">
+
+                        <label for="blogTopic">
+                            Article topic
+                        </label>
+
+                        <input
+                            type="text"
+                            id="blogTopic"
+                            placeholder="e.g. The future of Artificial Intelligence"
+                        >
+
+                        <span class="field-hint">
+                            What should the article be about?
+                        </span>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="options-grid">
+
+
+                        <div class="field">
+
+                            <label for="writingStyle">
+                                Writing style
+                            </label>
+
+                            <select id="writingStyle">
+
+                                <option value="Professional">
+                                    Professional
+                                </option>
+
+                                <option value="Casual">
+                                    Casual
+                                </option>
+
+                                <option value="Technical">
+                                    Technical
+                                </option>
+
+                                <option value="Storytelling">
+                                    Storytelling
+                                </option>
+
+                                <option value="Academic">
+                                    Academic
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="tone">
+                                Tone
+                            </label>
+
+                            <select id="tone">
+
+                                <option value="Friendly">
+                                    Friendly
+                                </option>
+
+                                <option value="Professional">
+                                    Professional
+                                </option>
+
+                                <option value="Informative">
+                                    Informative
+                                </option>
+
+                                <option value="Persuasive">
+                                    Persuasive
+                                </option>
+
+                                <option value="Inspirational">
+                                    Inspirational
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="audience">
+                                Target audience
+                            </label>
+
+                            <select id="audience">
+
+                                <option value="Engineering Students">
+                                    Engineering Students
+                                </option>
+
+                                <option value="Students">
+                                    Students
+                                </option>
+
+                                <option value="Professionals">
+                                    Professionals
+                                </option>
+
+                                <option value="Beginners">
+                                    Beginners
+                                </option>
+
+                                <option value="General Audience">
+                                    General Audience
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="wordCount">
+                                Article length
+                            </label>
+
+                            <select id="wordCount">
+
+                                <option value="500">
+                                    500 words
+                                </option>
+
+                                <option value="750">
+                                    750 words
+                                </option>
+
+                                <option value="1000">
+                                    1000 words
+                                </option>
+
+                                <option value="1500">
+                                    1500 words
+                                </option>
+
+                                <option value="2000">
+                                    2000 words
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EXTRA INSTRUCTIONS -->
+
+                    <div class="field">
+
+                        <div class="label-row">
+
+                            <label for="instructions">
+                                Additional instructions
+                            </label>
+
+                            <span>OPTIONAL</span>
+
+                        </div>
+
+                        <textarea
+                            id="instructions"
+                            rows="4"
+                            placeholder="e.g. Use simple English, real-world examples and keep the introduction engaging..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- GENERATE -->
+
+                    <div class="generate-row">
+
+                        <div class="generate-info">
+
+                            <span class="spark">✦</span>
+
+                            <div>
+                                <strong>Ready to write?</strong>
+                                <small>
+                                    Your article will be generated locally.
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="generate-button"
+                            id="generateBtn"
+                        >
+
+                            <span id="generateIcon">Generate Article</span>
+
+                            <span class="arrow">→</span>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =====================================
+                     RESULT SECTION
+                ====================================== -->
+
+                <section class="result-section">
+
+                    <div class="result-header">
+
+                        <div>
+
+                            <span class="step-label">
+                                STEP 02
+                            </span>
+
+                            <h2>
+                                Your generated article
+                            </h2>
+
+                        </div>
+
+                        <div class="result-actions">
+
+                            <button id="copyBtn">
+                                Copy
+                            </button>
+
+                            <button id="downloadBtn">
+                                Export
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESULT -->
+
+                    <article
+                        class="article-result"
+                        id="articleResult"
+                    >
+
+                        <div class="empty-result">
+
+                            <div class="empty-icon">
+                                ✦
+                            </div>
+
+                            <h3>
+                                Your article will appear here
+                            </h3>
+
+                            <p>
+                                Enter your topic above and click
+                                <strong>Generate Article</strong>.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- =====================================
+                     AI ASSISTANT
+                ====================================== -->
+
+                <section class="assistant-section">
+
+                    <div class="assistant-header">
+
+                        <div>
+
+                            <span class="step-label">
+                                QUICK ASSISTANT
+                            </span>
+
+                            <h2>
+                                Need help with your idea?
+                            </h2>
+
+                        </div>
+
+                        <span class="assistant-status">
+                            ● ONLINE
+                        </span>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <button data-prompt="Give me 5 interesting blog topics about Artificial Intelligence">
+                            Suggest topics
+                        </button>
+
+                        <button data-prompt="Give me a catchy introduction for a technology blog">
+                            Write an introduction
+                        </button>
+
+                        <button data-prompt="Give me SEO keywords for an AI blog">
+                            Find SEO keywords
+                        </button>
+
+                    </div>
+
+
+                    <div class="assistant-input">
+
+                        <input
+                            type="text"
+                            id="assistantInput"
+                            placeholder="Ask BlogBot something..."
+                        >
+
+                        <button id="assistantSend">
+                            →
+                        </button>
+
+                    </div>
+
+                    <div
+                        class="assistant-response"
+                        id="assistantResponse"
+                    ></div>
+
+                </section>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- LOADING OVERLAY -->
+
+    <div
+        class="loading-overlay"
+        id="loadingOverlay"
+    >
+
+        <div class="loader-card">
+
+            <div class="loader"></div>
+
+            <h3>
+                BlogBot is writing...
+            </h3>
+
+            <p>
+                Creating your article with AI
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Symptom Analysis Results</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <p class="eyebrow">MEDICAL SYMPTOM ASSISTANT</p>
+        <h1>Analysis Results</h1>
+
+        <section class="result-card">
+            <h2>Patient Information</h2>
+            <p><strong>Age:</strong> {{ age or "Not provided" }}</p>
+            <p><strong>Sex:</strong> {{ sex or "Not provided" }}</p>
+            <p><strong>Symptoms:</strong> {{ symptoms }}</p>
+            <p><strong>Duration:</strong> {{ duration or "Not provided" }}</p>
+            <p><strong>Severity:</strong> {{ severity or "Not provided" }}</p>
+        </section>
+
+        <h2>Possible Conditions and Analysis</h2>
+        <section class="result-card">
+            <p style="white-space: pre-line;">{{ analysis }}</p>
+        </section>
+
+        <p class="notice">
+            {{ save_message }}
+        </p>
+
+        <p class="notice">
+            This tool provides educational information only and cannot
+            diagnose illnesses. Seek advice from a qualified healthcare
+            professional. Severe or rapidly worsening symptoms need
+            urgent medical assessment.
+        </p>
+
+        <a class="back-link" href="/">← Back to the home page</a>
+    </main>
+</body>
+</html>

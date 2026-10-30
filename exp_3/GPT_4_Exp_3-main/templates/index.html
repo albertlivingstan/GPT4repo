@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Email Assistant</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+    <div class="brand-icon">✉</div>
+    <div>
+        <h1>MailMind AI</h1>
+        <p>Intelligent Email Assistant</p>
+    </div>
+    <div class="status"><span></span> Ollama AI</div>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <p class="side-label">WORKSPACE</p>
+        <a class="nav active" href="#compose">✎ &nbsp; Compose Email</a>
+        <a class="nav" href="#records">▤ &nbsp; Email Records</a>
+
+        <div class="side-card">
+            <div class="bot-icon">✦</div>
+            <h3>Your AI assistant</h3>
+            <p>Understand customer messages and draft helpful replies in seconds.</p>
+        </div>
+
+        <div class="side-footer">Powered by Python + Ollama</div>
+    </aside>
+
+    <main class="content">
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">AI-POWERED CUSTOMER SUPPORT</p>
+                <h2>Let's answer some emails.</h2>
+                <p class="muted">Enter a customer message. Your AI assistant will do the rest.</p>
+            </div>
+            <div class="avatar">AI</div>
+        </section>
+
+        <section class="workspace" id="compose">
+            <div class="form-panel">
+                <div class="section-title">
+                    <div class="step-icon">01</div>
+                    <div>
+                        <h3>Customer email</h3>
+                        <p>Enter the details of the incoming message.</p>
+                    </div>
+                </div>
+
+                <form id="emailForm">
+                    <label for="name">Customer name</label>
+                    <input id="name" placeholder="e.g. John Smith" required>
+
+                    <label for="subject">Email subject</label>
+                    <input id="subject" placeholder="e.g. Delivery delay" required>
+
+                    <label for="email">Customer message</label>
+                    <textarea id="email" rows="6"
+                        placeholder="Paste or type the customer's email here..."
+                        required></textarea>
+
+                    <label for="tone">Reply tone</label>
+                    <select id="tone">
+                        <option>Professional</option>
+                        <option>Formal</option>
+                        <option>Friendly</option>
+                        <option>Empathetic</option>
+                        <option>Concise</option>
+                    </select>
+
+                    <button type="submit" id="generateBtn">
+                        <span>✦</span> Generate AI Reply
+                    </button>
+                    <p class="hint">Your message will be processed by your local Ollama model.</p>
+                </form>
+            </div>
+
+            <div class="results-panel">
+                <div class="result-heading">
+                    <div>
+                        <p class="eyebrow">YOUR RESULTS</p>
+                        <h3>AI response studio</h3>
+                    </div>
+                    <span class="live-badge">● Ready</span>
+                </div>
+
+                <div id="placeholder" class="placeholder">
+                    <div class="big-sparkle">✦</div>
+                    <h3>Your response starts here</h3>
+                    <p>Submit a customer email to see the detected intent, generated reply, and summary.</p>
+                    <div class="mini-steps">
+                        <span>01 &nbsp; Analyze</span>
+                        <span>02 &nbsp; Generate</span>
+                        <span>03 &nbsp; Summarize</span>
+                    </div>
+                </div>
+
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <h3>Working on your email...</h3>
+                    <p>Ollama is analyzing the message and drafting a reply.</p>
+                </div>
+
+                <div id="errorBox" class="error hidden"></div>
+
+                <div id="results" class="hidden">
+                    <div class="result-card">
+                        <p class="result-label">DETECTED INTENT</p>
+                        <span id="intent" class="intent-pill"></span>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-title">
+                            <p class="result-label">GENERATED REPLY</p>
+                            <button type="button" class="copy-btn"
+                                onclick="copyReply()">Copy reply</button>
+                        </div>
+                        <div id="reply" class="reply-text"></div>
+                    </div>
+
+                    <div class="result-card">
+                        <p class="result-label">EMAIL SUMMARY</p>
+                        <p id="summary" class="summary-text"></p>
+                    </div>
+
+                    <div class="result-card">
+                        <p class="result-label">SIMILAR PAST EMAIL</p>
+                        <p id="similar" class="summary-text"></p>
+                    </div>
+
+                    <p id="copyStatus" class="hint"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="records-section" id="records">
+            <div class="records-heading">
+                <div>
+                    <p class="eyebrow">YOUR DATASET</p>
+                    <h3>Customer email records</h3>
+                </div>
+                <span class="count">{{ records|length }} records</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Subject</th>
+                        <th>Email</th>
+                        <th>Intent</th>
+                        <th>Previous reply</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.get('Customer_Name', '') }}</td>
+                        <td>{{ record.get('Subject', '') }}</td>
+                        <td>{{ record.get('Customer_Email', '') }}</td>
+                        <td><span class="table-pill">{{ record.get('Intent', '') }}</span></td>
+                        <td>{{ record.get('Previous_Reply', '') }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">No records found in data/emails.csv.</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>MailMind AI · Intelligent Email Assistant · Python + Flask + Ollama</footer>
+    </main>
+</div>
+
+<script>
+const form = document.getElementById("emailForm");
+const button = document.getElementById("generateBtn");
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    document.getElementById("placeholder").classList.add("hidden");
+    document.getElementById("results").classList.add("hidden");
+    document.getElementById("errorBox").classList.add("hidden");
+    document.getElementById("loading").classList.remove("hidden");
+    button.disabled = true;
+    button.textContent = "Generating reply...";
+
+    try {
+        const response = await fetch("/process", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                name: document.getElementById("name").value,
+                subject: document.getElementById("subject").value,
+                email: document.getElementById("email").value,
+                tone: document.getElementById("tone").value
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Something went wrong.");
+        }
+
+        document.getElementById("intent").textContent = data.intent;
+        document.getElementById("reply").textContent = data.reply;
+        document.getElementById("summary").textContent = data.summary;
+        document.getElementById("similar").textContent = data.similar_email;
+
+        document.getElementById("results").classList.remove("hidden");
+    } catch (error) {
+        const errorBox = document.getElementById("errorBox");
+        errorBox.textContent = error.message;
+        errorBox.classList.remove("hidden");
+    } finally {
+        document.getElementById("loading").classList.add("hidden");
+        button.disabled = false;
+        button.innerHTML = "<span>✦</span> Generate AI Reply";
+    }
+});
+
+async function copyReply() {
+    const reply = document.getElementById("reply").textContent;
+    const status = document.getElementById("copyStatus");
+
+    try {
+        await navigator.clipboard.writeText(reply);
+        status.textContent = "Reply copied to clipboard!";
+    } catch {
+        status.textContent = "Copy unavailable. Select the reply text and copy it manually.";
+    }
+}
+</script>
+</body>
+</html>

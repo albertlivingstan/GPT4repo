@@ -1,0 +1,3 @@
+age,sex,symptoms,duration,severity,history
+22,Female,"Fever, cough and sore throat",2 days,Mild,No known relevant condition
+35,Not specified,"Headache and fatigue",1 day,Moderate,Not provided

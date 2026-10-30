@@ -1,0 +1,59 @@
+Date: 2026-10-26 21:38:47.868498
+Customer Email: My order has not arrived
+Intent: Delivery Issue
+Generated Reply: Here is the rewritten email in a formal tone:
+
+Subject: Re: Missing Order - Next Steps
+
+Dear [Customer's Name],
+
+We acknowledge receipt of your email regarding the missing order and apologize once again for the inconvenience this has caused. We appreciate your diligence in bringing this matter to our attention and are committed to resolving this issue as soon as possible.
+
+We want to assure you that we are taking immediate and concerted action to locate your order. Our team is actively collaborating with our shipping partners to investigate the status of your shipment. At this time, we regret that we are unable to provide a specific expected delivery date for your order.
+
+To provide a more detailed update, we would like to offer the following options to facilitate a swift resolution to this issue:
+
+1. **Tracking Information**: We can provide you with a tracking link, which will enable you to monitor the status of your shipment in real-time, allowing you to stay informed about any updates or developments.
+2. **Re-shipment**: If we are unable to locate your original order, we can arrange for a re-shipment of the item(s) to the address you provided. Please let us know if this is a preferred course of action.
+3. **Store Credit**: If you would prefer not to receive a re-shipment, we can offer a store credit in the original amount. Please indicate if this is an option you would like to consider.
+
+We value your business and appreciate your patience and cooperation during this matter. If you have any further questions or concerns, please do not hesitate to contact us.
+
+Your order number is [insert order number]. We will maintain you informed of any developments regarding your order.
+
+Thank you for your continued understanding and cooperation.
+
+Sincerely,
+
+[Your Name]
+Customer Support Team
+
+Note: I made some minor changes to the original text to make it sound more formal and polished, such as using more formal language and avoiding contractions. I also added a few phrases to make the email sound more professional and customer-centric.
+----------------------------------------
+
+==================================================
+Customer: jeni
+Subject: Delivery Delay
+Intent: Delivery Issue
+Tone: Empathetic
+Customer Email: My order has not arrived. Please help me.
+Generated Reply:
+Here's a rewritten version of the customer support email in an empathetic tone:
+
+Subject: Re: Delivery Delay
+
+Dear Jeni,
+
+I want to start by saying how sorry I am that you're experiencing a delay with your order. I can imagine how frustrating it must be to wait for something you need or want. Please know that we're doing everything we can to get your order to you as soon as possible.
+
+I want to assure you that we're taking immediate action to investigate what's causing the delay. We'll be in touch as soon as we have any updates, and I'll make sure to keep you informed every step of the way.
+
+In the meantime, if you have any questions or concerns, please don't hesitate to reach out. I'm here to help and want to make sure you feel supported throughout this process.
+
+Thank you for your patience and understanding. We appreciate your business and value your trust. We're committed to making things right, and I'm confident that we'll get your order to you soon.
+
+Best regards,
+[Your Name]
+
+This rewritten version aims to convey a sense of empathy and understanding for the customer's frustration, while still conveying the necessary information and updates.
+Summary: The customer's order has not arrived, and they are requesting assistance with the delivery. The email asks for help with resolving the issue and receiving their order.

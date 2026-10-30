@@ -1,0 +1,20 @@
+
+MEDICAL SYMPTOM ASSISTANT REPORT
+================================
+
+Age: 20
+Sex: Female
+Symptoms: fever
+Duration: 2 days
+Severity: Severe
+
+POSSIBLE CONDITIONS AND ANALYSIS
+--------------------------------
+The symptoms may have several possible causes. The available information is insufficient to establish a diagnosis. Consult a qualified healthcare professional for an appropriate assessment.
+
+Missing information: None detected
+
+DISCLAIMER
+----------
+Educational information only. This is not a diagnosis or a substitute
+for professional medical advice.

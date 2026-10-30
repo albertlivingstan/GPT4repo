@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Symptom Assistant</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <p class="eyebrow">AI-POWERED HEALTH INFORMATION</p>
+            <h1>Medical Symptom Assistant</h1>
+            <p class="subtitle">
+                Enter your symptoms to explore general health information.
+            </p>
+        </header>
+
+        <div class="notice">
+            This educational tool cannot diagnose medical conditions or
+            replace advice from a qualified healthcare professional.
+        </div>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form action="/analyze" method="POST">
+            <label for="age">Age</label>
+            <input id="age" name="age" type="number"
+                   min="0" max="120" required>
+
+            <label for="sex">Sex (optional)</label>
+            <select id="sex" name="sex">
+                <option value="">Prefer not to say</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="symptoms">Describe your symptoms</label>
+            <textarea id="symptoms" name="symptoms" rows="4"
+                      placeholder="e.g. headache and fatigue"
+                      required></textarea>
+
+            <label for="duration">How long have you had them?</label>
+            <input id="duration" name="duration" type="text"
+                   placeholder="e.g. 2 days" required>
+
+            <label for="severity">Severity</label>
+            <select id="severity" name="severity" required>
+                <option value="">Select severity</option>
+                <option value="Mild">Mild</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Severe">Severe</option>
+            </select>
+
+            <button type="submit">Review Symptoms</button>
+        </form>
+
+        <footer>For educational use only · Not a medical diagnosis</footer>
+    </main>
+</body>
+</html>
