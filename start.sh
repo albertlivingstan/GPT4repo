@@ -9,3 +9,4 @@ if [ -f ".venv_shared/bin/python" ]; then
 else
     python3 run_all.py
 fi
+
