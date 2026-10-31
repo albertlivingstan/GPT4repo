@@ -1,247 +1,305 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intelligent Email Assistant</title>
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <title>MailSense AI — Customer Support Assistant & Triage Co-Pilot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-<header class="topbar">
-    <div class="brand-icon">✉</div>
-    <div>
-        <h1>MailMind AI</h1>
-        <p>Intelligent Email Assistant</p>
-    </div>
-    <div class="status"><span></span> Ollama AI</div>
-</header>
+<body class="mailsense-app">
 
-<div class="layout">
-    <aside class="sidebar">
-        <p class="side-label">WORKSPACE</p>
-        <a class="nav active" href="#compose">✎ &nbsp; Compose Email</a>
-        <a class="nav" href="#records">▤ &nbsp; Email Records</a>
-
-        <div class="side-card">
-            <div class="bot-icon">✦</div>
-            <h3>Your AI assistant</h3>
-            <p>Understand customer messages and draft helpful replies in seconds.</p>
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                    <span class="brand-name">MailSense<span class="brand-badge">AI</span></span>
+                    <span class="brand-sub">Support Ticket Triage & Resolution Assistant</span>
+                </div>
+            </div>
+            <div class="status-chip">
+                <span class="pulse-dot"></span>
+                <span>Ollama Engine Connected</span>
+            </div>
         </div>
 
-        <div class="side-footer">Powered by Python + Ollama</div>
-    </aside>
+        <div class="nav-right">
+            <a href="#records" class="nav-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                Dataset Records ({{ records|length }})
+            </a>
+            <div class="agent-badge">AGENT #01</div>
+        </div>
+    </header>
 
-    <main class="content">
-        <section class="page-heading">
+    <main class="main-layout">
+        <!-- Hero Header -->
+        <section class="hero-strip">
             <div>
-                <p class="eyebrow">AI-POWERED CUSTOMER SUPPORT</p>
-                <h2>Let's answer some emails.</h2>
-                <p class="muted">Enter a customer message. Your AI assistant will do the rest.</p>
+                <span class="eyebrow">AUTOMATED SUPPORT DESK</span>
+                <h2>Intelligent Ticket Resolution & Reply Drafting</h2>
+                <p>Analyze incoming customer emails, detect operational intent, retrieve past precedents, and draft empathetic resolutions in seconds.</p>
             </div>
-            <div class="avatar">AI</div>
+            <!-- Quick Load Demo Scenarios -->
+            <div class="quick-samples">
+                <span class="sample-label">⚡ Test Scenarios:</span>
+                <button type="button" class="sample-chip" onclick="loadSample(0)">📦 Delivery Delay</button>
+                <button type="button" class="sample-chip" onclick="loadSample(1)">💳 Duplicate Billing</button>
+                <button type="button" class="sample-chip" onclick="loadSample(2)">⚙️ Checkout Error</button>
+            </div>
         </section>
 
-        <section class="workspace" id="compose">
-            <div class="form-panel">
-                <div class="section-title">
-                    <div class="step-icon">01</div>
+        <!-- Main Workspace (Intake & Response Studio) -->
+        <div class="workspace-grid">
+            <!-- Left Column: Incoming Email Form -->
+            <section class="card intake-panel">
+                <div class="card-title-row">
+                    <div class="step-num">01</div>
                     <div>
-                        <h3>Customer email</h3>
-                        <p>Enter the details of the incoming message.</p>
+                        <h3>Incoming Customer Message</h3>
+                        <p class="card-desc">Enter customer details and inquiry message below.</p>
                     </div>
                 </div>
 
-                <form id="emailForm">
-                    <label for="name">Customer name</label>
-                    <input id="name" placeholder="e.g. John Smith" required>
-
-                    <label for="subject">Email subject</label>
-                    <input id="subject" placeholder="e.g. Delivery delay" required>
-
-                    <label for="email">Customer message</label>
-                    <textarea id="email" rows="6"
-                        placeholder="Paste or type the customer's email here..."
-                        required></textarea>
-
-                    <label for="tone">Reply tone</label>
-                    <select id="tone">
-                        <option>Professional</option>
-                        <option>Formal</option>
-                        <option>Friendly</option>
-                        <option>Empathetic</option>
-                        <option>Concise</option>
-                    </select>
-
-                    <button type="submit" id="generateBtn">
-                        <span>✦</span> Generate AI Reply
-                    </button>
-                    <p class="hint">Your message will be processed by your local Ollama model.</p>
-                </form>
-            </div>
-
-            <div class="results-panel">
-                <div class="result-heading">
-                    <div>
-                        <p class="eyebrow">YOUR RESULTS</p>
-                        <h3>AI response studio</h3>
-                    </div>
-                    <span class="live-badge">● Ready</span>
-                </div>
-
-                <div id="placeholder" class="placeholder">
-                    <div class="big-sparkle">✦</div>
-                    <h3>Your response starts here</h3>
-                    <p>Submit a customer email to see the detected intent, generated reply, and summary.</p>
-                    <div class="mini-steps">
-                        <span>01 &nbsp; Analyze</span>
-                        <span>02 &nbsp; Generate</span>
-                        <span>03 &nbsp; Summarize</span>
-                    </div>
-                </div>
-
-                <div id="loading" class="loading hidden">
-                    <div class="spinner"></div>
-                    <h3>Working on your email...</h3>
-                    <p>Ollama is analyzing the message and drafting a reply.</p>
-                </div>
-
-                <div id="errorBox" class="error hidden"></div>
-
-                <div id="results" class="hidden">
-                    <div class="result-card">
-                        <p class="result-label">DETECTED INTENT</p>
-                        <span id="intent" class="intent-pill"></span>
-                    </div>
-
-                    <div class="result-card">
-                        <div class="result-title">
-                            <p class="result-label">GENERATED REPLY</p>
-                            <button type="button" class="copy-btn"
-                                onclick="copyReply()">Copy reply</button>
+                <form id="emailForm" onsubmit="handleProcess(event)">
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="name">Customer Full Name <span class="req">*</span></label>
+                            <input type="text" id="name" placeholder="e.g. Sarah Jenkins" required>
                         </div>
-                        <div id="reply" class="reply-text"></div>
+                        <div class="form-group">
+                            <label for="subject">Subject Line <span class="req">*</span></label>
+                            <input type="text" id="subject" placeholder="e.g. Delayed Delivery #ORD-98213" required>
+                        </div>
                     </div>
 
-                    <div class="result-card">
-                        <p class="result-label">EMAIL SUMMARY</p>
-                        <p id="summary" class="summary-text"></p>
+                    <div class="form-group">
+                        <label for="email">Customer Email Body <span class="req">*</span></label>
+                        <textarea id="email" rows="7" placeholder="Paste incoming email text here..." required></textarea>
                     </div>
 
-                    <div class="result-card">
-                        <p class="result-label">SIMILAR PAST EMAIL</p>
-                        <p id="similar" class="summary-text"></p>
+                    <div class="form-group">
+                        <label>Preferred Reply Tone</label>
+                        <div class="tone-selector">
+                            <label class="tone-pill">
+                                <input type="radio" name="tone" value="Empathetic" checked>
+                                <span>💚 Empathetic</span>
+                            </label>
+                            <label class="tone-pill">
+                                <input type="radio" name="tone" value="Professional">
+                                <span>👔 Professional</span>
+                            </label>
+                            <label class="tone-pill">
+                                <input type="radio" name="tone" value="Friendly">
+                                <span>🤝 Friendly</span>
+                            </label>
+                            <label class="tone-pill">
+                                <input type="radio" name="tone" value="Direct & Concise">
+                                <span>⚡ Concise</span>
+                            </label>
+                        </div>
                     </div>
 
-                    <p id="copyStatus" class="hint"></p>
+                    <button type="submit" class="primary-btn" id="submitBtn">
+                        <span class="btn-text">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            Process & Generate Reply
+                        </span>
+                        <span class="btn-spinner" style="display:none;">
+                            <span class="spinner"></span> Analyzing & Drafting...
+                        </span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Right Column: AI Triage & Resolution Studio -->
+            <section class="card results-panel">
+                <div class="card-title-row">
+                    <div class="step-num step-green">02</div>
+                    <div>
+                        <h3>AI Resolution Studio</h3>
+                        <p class="card-desc">Context-grounded triage, summary, and drafted response.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="records-section" id="records">
-            <div class="records-heading">
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">✉️</div>
+                    <h4>No Message Processed Yet</h4>
+                    <p>Fill out the customer message on the left or select a <strong>Test Scenario</strong> above to preview automated triage and draft resolution.</p>
+                </div>
+
+                <!-- Active Results -->
+                <div class="results-content" id="resultsContent" style="display:none;">
+                    <!-- Intent & Summary Row -->
+                    <div class="triage-header-row">
+                        <div class="triage-block">
+                            <span class="block-label">CLASSIFIED INTENT</span>
+                            <span class="intent-tag" id="intentTag">Delivery Issue</span>
+                        </div>
+                        <div class="triage-block">
+                            <span class="block-label">HISTORICAL PRECEDENT</span>
+                            <span class="matched-badge" id="matchedBadge">Matched</span>
+                        </div>
+                    </div>
+
+                    <!-- Internal Summary Card -->
+                    <div class="summary-box">
+                        <span class="box-tag">TICKET SUMMARY</span>
+                        <p id="ticketSummary" class="summary-text"></p>
+                    </div>
+
+                    <!-- Drafted Resolution Reply -->
+                    <div class="reply-container">
+                        <div class="reply-header">
+                            <span class="box-tag">DRAFTED EMAIL REPLY</span>
+                            <div class="reply-actions">
+                                <button type="button" class="action-btn" onclick="copyReply()">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    Copy Draft
+                                </button>
+                            </div>
+                        </div>
+                        <textarea id="replyDraft" class="reply-textarea" rows="8"></textarea>
+                    </div>
+
+                    <!-- Similar Email Context Reference -->
+                    <details class="ref-drawer">
+                        <summary>View Retrieved Precedent Context</summary>
+                        <div class="precedent-content" id="precedentContent"></div>
+                    </details>
+                </div>
+            </section>
+        </div>
+
+        <!-- Historical Database Records Section -->
+        <section class="card records-section" id="records">
+            <div class="records-header">
                 <div>
-                    <p class="eyebrow">YOUR DATASET</p>
-                    <h3>Customer email records</h3>
+                    <h3>Historical Precedents & Resolution Knowledge Base</h3>
+                    <p>Training and benchmark samples retrieved from <code>data/emails.csv</code></p>
                 </div>
-                <span class="count">{{ records|length }} records</span>
+                <span class="pill-count">{{ records|length }} Indexed Cases</span>
             </div>
 
-            <div class="table-wrap">
-                <table>
+            <div class="table-responsive">
+                <table class="records-table">
                     <thead>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Subject</th>
-                        <th>Email</th>
-                        <th>Intent</th>
-                        <th>Previous reply</th>
-                    </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer</th>
+                            <th>Subject</th>
+                            <th>Classified Intent</th>
+                            <th>Sample Inbound Query</th>
+                            <th>Historical Resolution</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {% for record in records %}
-                    <tr>
-                        <td>{{ record.get('Customer_Name', '') }}</td>
-                        <td>{{ record.get('Subject', '') }}</td>
-                        <td>{{ record.get('Customer_Email', '') }}</td>
-                        <td><span class="table-pill">{{ record.get('Intent', '') }}</span></td>
-                        <td>{{ record.get('Previous_Reply', '') }}</td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="5">No records found in data/emails.csv.</td>
-                    </tr>
-                    {% endfor %}
+                        {% for r in records %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ r.get('Customer_Name') or r.get('Name') or 'Customer' }}</strong></td>
+                            <td>{{ r.get('Subject') or 'Support Ticket' }}</td>
+                            <td><span class="intent-table-pill">{{ r.get('Intent') or 'General' }}</span></td>
+                            <td class="table-email-col">{{ r.get('Customer_Email') or r.get('Email') }}</td>
+                            <td class="table-reply-col">{{ r.get('Previous_Reply') or r.get('Reply') }}</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </section>
-
-        <footer>MailMind AI · Intelligent Email Assistant · Python + Flask + Ollama</footer>
     </main>
-</div>
 
-<script>
-const form = document.getElementById("emailForm");
-const button = document.getElementById("generateBtn");
+    <footer class="app-footer">
+        <p><strong>MailSense AI</strong> • Experiment 3 — Building Applications using GPT-4 & LLMs (24CS2506)</p>
+    </footer>
 
-form.addEventListener("submit", async function(event) {
-    event.preventDefault();
+    <!-- Toast -->
+    <div class="toast" id="toast">Copied to clipboard!</div>
 
-    document.getElementById("placeholder").classList.add("hidden");
-    document.getElementById("results").classList.add("hidden");
-    document.getElementById("errorBox").classList.add("hidden");
-    document.getElementById("loading").classList.remove("hidden");
-    button.disabled = true;
-    button.textContent = "Generating reply...";
+    <script>
+        let demoSamples = [];
 
-    try {
-        const response = await fetch("/process", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                name: document.getElementById("name").value,
-                subject: document.getElementById("subject").value,
-                email: document.getElementById("email").value,
-                tone: document.getElementById("tone").value
-            })
-        });
+        fetch('/api/samples')
+            .then(r => r.json())
+            .then(data => { demoSamples = data.samples || []; })
+            .catch(() => {});
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || "Something went wrong.");
+        function loadSample(idx) {
+            if (!demoSamples[idx]) return;
+            const s = demoSamples[idx];
+            document.getElementById('name').value = s.name;
+            document.getElementById('subject').value = s.subject;
+            document.getElementById('email').value = s.email;
+            const radios = document.getElementsByName('tone');
+            for (let r of radios) {
+                if (r.value === s.tone) r.checked = true;
+            }
+            showToast('Loaded ' + s.subject);
         }
 
-        document.getElementById("intent").textContent = data.intent;
-        document.getElementById("reply").textContent = data.reply;
-        document.getElementById("summary").textContent = data.summary;
-        document.getElementById("similar").textContent = data.similar_email;
+        async function handleProcess(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.querySelector('.btn-text').style.display = 'none';
+            btn.querySelector('.btn-spinner').style.display = 'inline-flex';
+            btn.disabled = true;
 
-        document.getElementById("results").classList.remove("hidden");
-    } catch (error) {
-        const errorBox = document.getElementById("errorBox");
-        errorBox.textContent = error.message;
-        errorBox.classList.remove("hidden");
-    } finally {
-        document.getElementById("loading").classList.add("hidden");
-        button.disabled = false;
-        button.innerHTML = "<span>✦</span> Generate AI Reply";
-    }
-});
+            const tone = document.querySelector('input[name="tone"]:checked')?.value || 'Professional';
 
-async function copyReply() {
-    const reply = document.getElementById("reply").textContent;
-    const status = document.getElementById("copyStatus");
+            const payload = {
+                name: document.getElementById('name').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                tone: tone
+            };
 
-    try {
-        await navigator.clipboard.writeText(reply);
-        status.textContent = "Reply copied to clipboard!";
-    } catch {
-        status.textContent = "Copy unavailable. Select the reply text and copy it manually.";
-    }
-}
-</script>
+            try {
+                const res = await fetch('/process', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (!res.ok || data.error) throw new Error(data.error || 'Server error');
+
+                document.getElementById('emptyState').style.display = 'none';
+                document.getElementById('resultsContent').style.display = 'block';
+
+                document.getElementById('intentTag').textContent = data.intent || 'General Inquiry';
+                document.getElementById('ticketSummary').textContent = data.summary || '';
+                document.getElementById('replyDraft').value = data.reply || '';
+                document.getElementById('precedentContent').textContent = data.similar_email || 'None';
+
+                showToast('Resolution generated successfully!');
+            } catch (err) {
+                alert('Error processing email: ' + err.message);
+            } finally {
+                btn.querySelector('.btn-text').style.display = 'inline-flex';
+                btn.querySelector('.btn-spinner').style.display = 'none';
+                btn.disabled = false;
+            }
+        }
+
+        function copyReply() {
+            const text = document.getElementById('replyDraft').value;
+            navigator.clipboard.writeText(text);
+            showToast('Reply copied to clipboard!');
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('visible');
+            setTimeout(() => t.classList.remove('visible'), 2200);
+        }
+    </script>
 </body>
 </html>

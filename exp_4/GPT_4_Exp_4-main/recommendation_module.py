@@ -1,11 +1,32 @@
 import ollama
 import json
 
+FALLBACK_MODELS = ["llama3.2:latest", "llama3.2", "llama3.2:3b", "qwen2.5:3b"]
+
+
+def ask_ollama_json(prompt):
+    last_err = None
+    for model_name in FALLBACK_MODELS:
+        try:
+            response = ollama.chat(
+                model=model_name,
+                messages=[{"role": "user", "content": prompt}],
+                format="json"
+            )
+            content = response.get("message", {}).get("content", "").strip()
+            return json.loads(content)
+        except Exception as e:
+            last_err = e
+            if "not found" in str(e).lower():
+                continue
+            raise
+    if last_err:
+        raise last_err
+    return {"recommendations": []}
+
 
 def generate_recommendations(profile):
-
-    prompt = f"""
-You are a personalized recommendation assistant.
+    prompt = f"""You are PathFinder AI, an elite personalized learning recommendation and curriculum intelligence engine.
 
 User Profile:
 Name: {profile['name']}
@@ -13,40 +34,26 @@ Age: {profile['age']}
 Background: {profile['background']}
 Interests: {profile['interests']}
 Skill Level: {profile['skill_level']}
-Preference: {profile['preference']}
-Goal: {profile['goal']}
+Learning Preference: {profile['preference']}
+Career/Learning Goal: {profile['goal']}
 
-Recommend exactly {profile['num_items']} suitable learning resources.
+Recommend exactly {profile['num_items']} top-tier learning resources tailored to this profile.
 
-Return ONLY valid JSON in this format:
-
+Return ONLY valid JSON in this exact structure:
 {{
     "recommendations": [
         {{
-            "name": "Resource name",
+            "name": "Resource Name (Course, Book, Certification, or Project)",
+            "type": "Course / Project / Book / Certification",
             "score": 95,
-            "reason": "Why this resource suits the user"
+            "difficulty": "Beginner / Intermediate / Advanced",
+            "reason": "Clear explanation of why this resource directly advances the user's specific career goal."
         }}
     ]
 }}
 
-The score must be a number from 0 to 100.
-Do not include any text outside the JSON.
-"""
+The score must be an integer between 70 and 99 reflecting alignment percentage.
+Do not output any markdown code fences or conversational text outside the JSON object."""
 
-    response = ollama.chat(
-        model="llama3.2:latest",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        format="json"
-    )
-
-    result = json.loads(response["message"]["content"])
-
-    recommendations = result["recommendations"]
-
-    return recommendations
+    result = ask_ollama_json(prompt)
+    return result.get("recommendations", [])

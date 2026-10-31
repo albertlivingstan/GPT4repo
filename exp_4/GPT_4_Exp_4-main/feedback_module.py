@@ -1,64 +1,44 @@
-import ollama
 import json
+from recommendation_module import ask_ollama_json
 
 
 def refine_recommendations(profile, feedback):
-
-    prompt = f"""
-You are a personalized recommendation assistant.
+    prompt = f"""You are PathFinder AI, an elite personalized learning curriculum engine.
 
 Original User Profile:
-Name: {profile['name']}
-Age: {profile['age']}
-Background: {profile['background']}
-Interests: {profile['interests']}
-Skill Level: {profile['skill_level']}
-Preference: {profile['preference']}
-Goal: {profile['goal']}
+Name: {profile.get('name', 'Learner')}
+Age: {profile.get('age', 'N/A')}
+Background: {profile.get('background', 'N/A')}
+Interests: {profile.get('interests', 'N/A')}
+Skill Level: {profile.get('skill_level', 'N/A')}
+Preference: {profile.get('preference', 'N/A')}
+Goal: {profile.get('goal', 'N/A')}
 
-User Feedback:
-{feedback}
+User Feedback & Refinement Critique:
+"{feedback}"
 
-Based on the user's feedback, generate exactly {profile['num_items']} refined
-learning recommendations.
+Based on this specific feedback, adapt and regenerate exactly {profile.get('num_items', 4)} refined learning recommendations that directly address the user's critique.
 
-Return ONLY valid JSON in this format:
-
+Return ONLY valid JSON in this exact structure:
 {{
     "recommendations": [
         {{
-            "name": "Resource name",
-            "score": 95,
-            "reason": "Why this resource now suits the user"
+            "name": "Resource Name",
+            "type": "Course / Project / Book / Certification",
+            "score": 96,
+            "difficulty": "Beginner / Intermediate / Advanced",
+            "reason": "Why this resource satisfies the user's refinement feedback."
         }}
     ]
 }}
 
-The score must be a number from 0 to 100.
-Do not include any text outside the JSON.
-"""
+The score must be a number from 70 to 99.
+Return ONLY the raw JSON object."""
 
-    response = ollama.chat(
-        model="llama3.2:latest",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        format="json"
-    )
-
-    result = json.loads(response["message"]["content"])
-
-    return result["recommendations"]
+    result = ask_ollama_json(prompt)
+    return result.get("recommendations", [])
 
 
 def get_feedback():
     print("\n===== USER FEEDBACK =====")
-
-    feedback = input(
-        "Enter your feedback about the recommendations: "
-    )
-
-    return feedback
+    return input("How would you like to refine these recommendations? ")

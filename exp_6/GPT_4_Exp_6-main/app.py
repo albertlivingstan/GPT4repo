@@ -1,4 +1,5 @@
 
+import os
 from flask import Flask, render_template, request
 from analysis_module import generate_analysis
 from pathlib import Path
@@ -105,4 +106,5 @@ for professional medical advice.
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5006))
+    app.run(debug=True, port=port)

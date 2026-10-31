@@ -1,590 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BlogBot | AI Writing Studio</title>
-
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}">
+    <title>BlogStudio Pro — Advanced AI Writing Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body class="studio-app">
 
-<body>
-
-    <div class="app">
-
-        <!-- =========================================
-             LEFT NAVIGATION
-        ========================================== -->
-
-        <aside class="sidebar">
-
-            <div class="brand">
-                <div class="brand-mark">B</div>
-
+    <!-- Top Navigation Header -->
+    <header class="studio-header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                    </svg>
+                </div>
                 <div>
-                    <h2>BlogBot</h2>
-                    <span>Writing Studio</span>
+                    <span class="logo-text">BlogStudio<span class="logo-pro">PRO</span></span>
+                    <span class="logo-sub">Advanced AI Content Workspace</span>
                 </div>
             </div>
 
-
-            <button class="new-project" id="newChatBtn">
-                <span>＋</span>
-                New Article
-            </button>
-
-
-            <nav class="navigation">
-
-                <p class="nav-title">WORKSPACE</p>
-
-                <button class="nav-item active">
-                    <span class="nav-icon">✦</span>
-
-                    <div>
-                        <strong>Article Writer</strong>
-                        <small>Create with AI</small>
-                    </div>
-                </button>
-
-
-                <button class="nav-item">
-                    <span class="nav-icon">◈</span>
-
-                    <div>
-                        <strong>Prompt Studio</strong>
-                        <small>Customize prompts</small>
-                    </div>
-                </button>
-
-
-                <button class="nav-item">
-                    <span class="nav-icon">⌁</span>
-
-                    <div>
-                        <strong>AI Assistant</strong>
-                        <small>Ask anything</small>
-                    </div>
-                </button>
-
-
-                <p class="nav-title second-title">TOOLS</p>
-
-
-                <button class="simple-nav">
-                    <span>▣</span>
-                    Saved Articles
-                </button>
-
-
-                <button class="simple-nav">
-                    <span>◷</span>
-                    Recent Work
-                </button>
-
-            </nav>
-
-
-            <div class="sidebar-footer">
-
-                <div class="connection">
-                    <span class="connection-dot"></span>
-
-                    <div>
-                        <strong>AI Engine Online</strong>
-                        <small>Ollama connected</small>
-                    </div>
-                </div>
-
+            <div class="model-badge">
+                <span class="pulse-indicator"></span>
+                <span class="model-label">Engine:</span>
+                <select id="modelSelector" class="model-select" title="Switch Local AI Model">
+                    <option value="llama3.2">Llama 3.2 (Default)</option>
+                </select>
             </div>
-
-        </aside>
-
-
-        <!-- =========================================
-             MAIN AREA
-        ========================================== -->
-
-        <main class="main">
-
-
-            <!-- TOP BAR -->
-
-            <header class="topbar">
-
-                <div class="breadcrumb">
-                    Workspace
-                    <span>/</span>
-                    <strong>Article Writer</strong>
-                </div>
-
-
-                <div class="top-actions">
-
-                    <div class="engine">
-                        <span class="engine-dot"></span>
-                        Llama 3.2
-                    </div>
-
-                    <button class="icon-button" title="Help">
-                        ?
-                    </button>
-
-                    <div class="profile">
-                        J
-                    </div>
-
-                </div>
-
-            </header>
-
-
-            <!-- =========================================
-                 PAGE CONTENT
-            ========================================== -->
-
-            <section class="workspace">
-
-                <!-- INTRO -->
-
-                <div class="intro">
-
-                    <div>
-
-                        <span class="eyebrow">
-                            AI CONTENT CREATOR
-                        </span>
-
-                        <h1>
-                            Create something worth reading.
-                        </h1>
-
-                        <p>
-                            Give BlogBot your idea and preferences.
-                            We'll turn them into a polished article.
-                        </p>
-
-                    </div>
-
-                    <div class="intro-number">
-                        <span>01</span>
-                        <small>ARTICLE</small>
-                    </div>
-
-                </div>
-
-
-                <!-- =====================================
-                     GENERATOR CARD
-                ====================================== -->
-
-                <section class="generator-card">
-
-
-                    <div class="card-heading">
-
-                        <div>
-                            <span class="step-label">STEP 01</span>
-
-                            <h2>
-                                Tell us about your article
-                            </h2>
-
-                            <p>
-                                Start with a topic and customize the writing style.
-                            </p>
-                        </div>
-
-                        <div class="heading-symbol">
-                            ✎
-                        </div>
-
-                    </div>
-
-
-                    <!-- TOPIC -->
-
-                    <div class="field topic-field">
-
-                        <label for="blogTopic">
-                            Article topic
-                        </label>
-
-                        <input
-                            type="text"
-                            id="blogTopic"
-                            placeholder="e.g. The future of Artificial Intelligence"
-                        >
-
-                        <span class="field-hint">
-                            What should the article be about?
-                        </span>
-
-                    </div>
-
-
-                    <!-- OPTIONS -->
-
-                    <div class="options-grid">
-
-
-                        <div class="field">
-
-                            <label for="writingStyle">
-                                Writing style
-                            </label>
-
-                            <select id="writingStyle">
-
-                                <option value="Professional">
-                                    Professional
-                                </option>
-
-                                <option value="Casual">
-                                    Casual
-                                </option>
-
-                                <option value="Technical">
-                                    Technical
-                                </option>
-
-                                <option value="Storytelling">
-                                    Storytelling
-                                </option>
-
-                                <option value="Academic">
-                                    Academic
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label for="tone">
-                                Tone
-                            </label>
-
-                            <select id="tone">
-
-                                <option value="Friendly">
-                                    Friendly
-                                </option>
-
-                                <option value="Professional">
-                                    Professional
-                                </option>
-
-                                <option value="Informative">
-                                    Informative
-                                </option>
-
-                                <option value="Persuasive">
-                                    Persuasive
-                                </option>
-
-                                <option value="Inspirational">
-                                    Inspirational
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label for="audience">
-                                Target audience
-                            </label>
-
-                            <select id="audience">
-
-                                <option value="Engineering Students">
-                                    Engineering Students
-                                </option>
-
-                                <option value="Students">
-                                    Students
-                                </option>
-
-                                <option value="Professionals">
-                                    Professionals
-                                </option>
-
-                                <option value="Beginners">
-                                    Beginners
-                                </option>
-
-                                <option value="General Audience">
-                                    General Audience
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label for="wordCount">
-                                Article length
-                            </label>
-
-                            <select id="wordCount">
-
-                                <option value="500">
-                                    500 words
-                                </option>
-
-                                <option value="750">
-                                    750 words
-                                </option>
-
-                                <option value="1000">
-                                    1000 words
-                                </option>
-
-                                <option value="1500">
-                                    1500 words
-                                </option>
-
-                                <option value="2000">
-                                    2000 words
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- EXTRA INSTRUCTIONS -->
-
-                    <div class="field">
-
-                        <div class="label-row">
-
-                            <label for="instructions">
-                                Additional instructions
-                            </label>
-
-                            <span>OPTIONAL</span>
-
-                        </div>
-
-                        <textarea
-                            id="instructions"
-                            rows="4"
-                            placeholder="e.g. Use simple English, real-world examples and keep the introduction engaging..."
-                        ></textarea>
-
-                    </div>
-
-
-                    <!-- GENERATE -->
-
-                    <div class="generate-row">
-
-                        <div class="generate-info">
-
-                            <span class="spark">✦</span>
-
-                            <div>
-                                <strong>Ready to write?</strong>
-                                <small>
-                                    Your article will be generated locally.
-                                </small>
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            class="generate-button"
-                            id="generateBtn"
-                        >
-
-                            <span id="generateIcon">Generate Article</span>
-
-                            <span class="arrow">→</span>
-
-                        </button>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =====================================
-                     RESULT SECTION
-                ====================================== -->
-
-                <section class="result-section">
-
-                    <div class="result-header">
-
-                        <div>
-
-                            <span class="step-label">
-                                STEP 02
-                            </span>
-
-                            <h2>
-                                Your generated article
-                            </h2>
-
-                        </div>
-
-                        <div class="result-actions">
-
-                            <button id="copyBtn">
-                                Copy
-                            </button>
-
-                            <button id="downloadBtn">
-                                Export
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- RESULT -->
-
-                    <article
-                        class="article-result"
-                        id="articleResult"
-                    >
-
-                        <div class="empty-result">
-
-                            <div class="empty-icon">
-                                ✦
-                            </div>
-
-                            <h3>
-                                Your article will appear here
-                            </h3>
-
-                            <p>
-                                Enter your topic above and click
-                                <strong>Generate Article</strong>.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-                </section>
-
-
-                <!-- =====================================
-                     AI ASSISTANT
-                ====================================== -->
-
-                <section class="assistant-section">
-
-                    <div class="assistant-header">
-
-                        <div>
-
-                            <span class="step-label">
-                                QUICK ASSISTANT
-                            </span>
-
-                            <h2>
-                                Need help with your idea?
-                            </h2>
-
-                        </div>
-
-                        <span class="assistant-status">
-                            ● ONLINE
-                        </span>
-
-                    </div>
-
-
-                    <div class="quick-actions">
-
-                        <button data-prompt="Give me 5 interesting blog topics about Artificial Intelligence">
-                            Suggest topics
-                        </button>
-
-                        <button data-prompt="Give me a catchy introduction for a technology blog">
-                            Write an introduction
-                        </button>
-
-                        <button data-prompt="Give me SEO keywords for an AI blog">
-                            Find SEO keywords
-                        </button>
-
-                    </div>
-
-
-                    <div class="assistant-input">
-
-                        <input
-                            type="text"
-                            id="assistantInput"
-                            placeholder="Ask BlogBot something..."
-                        >
-
-                        <button id="assistantSend">
-                            →
-                        </button>
-
-                    </div>
-
-                    <div
-                        class="assistant-response"
-                        id="assistantResponse"
-                    ></div>
-
-                </section>
-
-            </section>
-
-        </main>
-
-    </div>
-
-
-    <!-- LOADING OVERLAY -->
-
-    <div
-        class="loading-overlay"
-        id="loadingOverlay"
-    >
-
-        <div class="loader-card">
-
-            <div class="loader"></div>
-
-            <h3>
-                BlogBot is writing...
-            </h3>
-
-            <p>
-                Creating your article with AI
-            </p>
-
         </div>
 
+        <div class="header-right">
+            <button class="header-btn" id="historyModalBtn" title="View Saved Articles">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                History (<span id="historyCount">0</span>)
+            </button>
+            <button class="header-btn" id="newArticleBtn" title="Start New Article">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New Draft
+            </button>
+            <div class="user-avatar" title="Local Session">PRO</div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="studio-main">
+
+        <!-- ========================================================
+             LEFT PANEL: CONFIGURATION & BUILDER
+             ======================================================== -->
+        <aside class="panel-left">
+            <div class="panel-tabs">
+                <button class="tab-btn active" id="tabBuilderBtn" onclick="switchPanelTab('builder')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                    Article Builder
+                </button>
+                <button class="tab-btn" id="tabIdeateBtn" onclick="switchPanelTab('ideate')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    AI Brainstormer
+                </button>
+            </div>
+
+            <!-- Tab 1: Builder Form -->
+            <div class="tab-content" id="tabBuilder">
+                <form id="blogForm" onsubmit="handleGenerate(event)">
+                    <!-- Topic Field -->
+                    <div class="field-block">
+                        <div class="field-label-row">
+                            <label for="blogTopic">Article Topic / Title Idea <span class="req">*</span></label>
+                            <button type="button" class="action-link" onclick="suggestRandomTopic()">🎲 Random Idea</button>
+                        </div>
+                        <div class="input-container">
+                            <input type="text" id="blogTopic" placeholder="e.g. The Future of AI Agents in Modern Software Engineering" required>
+                        </div>
+                    </div>
+
+                    <!-- SEO Keywords -->
+                    <div class="field-block">
+                        <div class="field-label-row">
+                            <label for="seoKeywords">Target Keywords <span class="opt">(Optional)</span></label>
+                            <span class="field-hint">Comma-separated</span>
+                        </div>
+                        <input type="text" id="seoKeywords" placeholder="e.g. generative AI, autonomous coding, productivity">
+                    </div>
+
+                    <!-- Grid: Style & Tone -->
+                    <div class="field-grid-2">
+                        <div class="field-block">
+                            <label for="writingStyle">Writing Style</label>
+                            <select id="writingStyle">
+                                <option value="Professional & Authoritative">Professional & Authoritative</option>
+                                <option value="Technical & Engineering">Technical & Engineering</option>
+                                <option value="Conversational & Engaging">Conversational & Engaging</option>
+                                <option value="Thought Leadership">Thought Leadership</option>
+                                <option value="Storytelling & Narrative">Storytelling & Narrative</option>
+                                <option value="Academic & Analytical">Academic & Analytical</option>
+                            </select>
+                        </div>
+
+                        <div class="field-block">
+                            <label for="tone">Tone of Voice</label>
+                            <select id="tone">
+                                <option value="Informative & Objective">Informative & Objective</option>
+                                <option value="Inspiring & Visionary">Inspiring & Visionary</option>
+                                <option value="Direct & Actionable">Direct & Actionable</option>
+                                <option value="Friendly & Approachable">Friendly & Approachable</option>
+                                <option value="Persuasive & Compelling">Persuasive & Compelling</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Grid: Audience & Length -->
+                    <div class="field-grid-2">
+                        <div class="field-block">
+                            <label for="audience">Target Audience</label>
+                            <select id="audience">
+                                <option value="Software Engineers & Tech Leaders">Engineers & Tech Leaders</option>
+                                <option value="Computer Science Students">CS & STEM Students</option>
+                                <option value="Product Managers & Founders">Product Managers & Founders</option>
+                                <option value="Tech Enthusiasts & Beginners">Beginners & Enthusiasts</option>
+                                <option value="Industry Executives">Business & C-Suite</option>
+                            </select>
+                        </div>
+
+                        <div class="field-block">
+                            <label for="wordCount">Article Length</label>
+                            <select id="wordCount">
+                                <option value="500">Brief (~500 words)</option>
+                                <option value="800" selected>Standard (~800 words)</option>
+                                <option value="1200">Deep-Dive (~1200 words)</option>
+                                <option value="1800">Comprehensive Guide (~1800 words)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Structural Inclusions -->
+                    <div class="field-block">
+                        <label class="toggle-group-title">Structure & Add-ons</label>
+                        <div class="toggle-chips">
+                            <label class="chip-toggle">
+                                <input type="checkbox" id="includeTakeaways" checked>
+                                <span>Key Takeaways Box</span>
+                            </label>
+                            <label class="chip-toggle">
+                                <input type="checkbox" id="includeFaq" checked>
+                                <span>FAQ Section (3 Q&As)</span>
+                            </label>
+                            <label class="chip-toggle">
+                                <input type="checkbox" id="includeToc">
+                                <span>Table of Contents</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Additional Guidance (Collapsible) -->
+                    <details class="collapsible-block">
+                        <summary>Custom Instructions & Constraints</summary>
+                        <textarea id="instructions" rows="3" placeholder="e.g. Include real-world benchmarks, cite recent architectural advancements, and avoid generic cliches..."></textarea>
+                    </details>
+
+                    <!-- Generate CTA -->
+                    <div class="submit-wrapper">
+                        <button type="submit" class="cta-generate-btn" id="generateBtn">
+                            <span class="btn-idle">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                Generate Full Article
+                            </span>
+                            <span class="btn-loading" style="display:none;">
+                                <span class="spinner-dot"></span> Generating with AI...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab 2: AI Ideator & Brainstormer -->
+            <div class="tab-content" id="tabIdeate" style="display:none;">
+                <div class="ideate-banner">
+                    <h4>AI Brainstorming Toolkit</h4>
+                    <p>Kickstart your content pipeline with AI-generated titles, structural outlines, and SEO keyword analysis.</p>
+                </div>
+
+                <div class="field-block">
+                    <label for="assistInput">Subject or Niche</label>
+                    <div class="input-container">
+                        <input type="text" id="assistInput" placeholder="e.g. Vector Databases for RAG">
+                    </div>
+                </div>
+
+                <div class="assist-grid">
+                    <button type="button" class="assist-tile" onclick="runQuickAssist('topics')">
+                        <span class="tile-icon">💡</span>
+                        <strong>Viral Titles</strong>
+                        <small>5 high-converting angles</small>
+                    </button>
+                    <button type="button" class="assist-tile" onclick="runQuickAssist('outline')">
+                        <span class="tile-icon">📑</span>
+                        <strong>Full Outline</strong>
+                        <small>H2/H3 section architecture</small>
+                    </button>
+                    <button type="button" class="assist-tile" onclick="runQuickAssist('keywords')">
+                        <span class="tile-icon">🎯</span>
+                        <strong>SEO Keyword Map</strong>
+                        <small>Keywords & search intent</small>
+                    </button>
+                    <button type="button" class="assist-tile" onclick="runQuickAssist('intro')">
+                        <span class="tile-icon">🎣</span>
+                        <strong>Hook Options</strong>
+                        <small>3 narrative hooks</small>
+                    </button>
+                </div>
+
+                <div class="ideate-output" id="ideateOutput" style="display:none;">
+                    <div class="output-header">
+                        <span id="outputTypeLabel">IDEATION RESULTS</span>
+                        <button type="button" class="copy-small" onclick="copyIdeateOutput()">Copy</button>
+                    </div>
+                    <div class="output-content" id="ideateText"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========================================================
+             RIGHT PANEL: LIVE STUDIO CANVAS & EDITOR
+             ======================================================== -->
+        <section class="panel-right">
+            <!-- Canvas Header & View Switcher -->
+            <div class="canvas-header">
+                <div class="view-tabs">
+                    <button class="view-tab active" id="viewPreviewBtn" onclick="switchView('preview')">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Rich Preview
+                    </button>
+                    <button class="view-tab" id="viewMarkdownBtn" onclick="switchView('markdown')">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        Raw Markdown
+                    </button>
+                    <button class="view-tab" id="viewInsightsBtn" onclick="switchView('insights')">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        SEO & Metrics
+                    </button>
+                </div>
+
+                <div class="canvas-actions">
+                    <button class="canvas-btn" onclick="copyArticle()" title="Copy to clipboard">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                    <div class="dropdown">
+                        <button class="canvas-btn dropdown-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Export ▾
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="javascript:void(0)" onclick="exportArticle('markdown')">Markdown (.md)</a>
+                            <a href="javascript:void(0)" onclick="exportArticle('text')">Plain Text (.txt)</a>
+                            <a href="javascript:void(0)" onclick="exportArticle('html')">Web HTML (.html)</a>
+                            <a href="javascript:void(0)" onclick="window.print()">Print / PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="metrics-bar" id="metricsBar" style="display:none;">
+                <div class="metric-pill">
+                    <span class="metric-title">Words:</span>
+                    <strong id="statWords">0</strong>
+                </div>
+                <div class="metric-pill">
+                    <span class="metric-title">Est. Reading Time:</span>
+                    <strong id="statReadingTime">0 min</strong>
+                </div>
+                <div class="metric-pill">
+                    <span class="metric-title">Flesch Readability:</span>
+                    <span class="badge-score" id="statFleschScore">--</span>
+                </div>
+                <div class="metric-pill">
+                    <span class="metric-title">Gen Time:</span>
+                    <strong id="statTime">0.0s</strong>
+                </div>
+            </div>
+
+            <!-- Inline AI Polishing Toolbar -->
+            <div class="inline-ai-bar" id="inlineAiBar" style="display:none;">
+                <span class="inline-label">✨ Quick AI Polish:</span>
+                <button type="button" class="mini-tool-btn" onclick="refineArticle('expand')">Expand Points</button>
+                <button type="button" class="mini-tool-btn" onclick="refineArticle('shorten')">Make Concise</button>
+                <button type="button" class="mini-tool-btn" onclick="refineArticle('simplify')">Simplify Language</button>
+                <button type="button" class="mini-tool-btn" onclick="refineArticle('professional')">Executive Tone</button>
+                <button type="button" class="mini-tool-btn" onclick="refineArticle('bullet_points')">Bulletize</button>
+            </div>
+
+            <!-- View 1: Rich Preview -->
+            <div class="canvas-body" id="canvasPreview">
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon-wrap">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <h3>Ready to Author High-Impact Content</h3>
+                    <p>Enter an article topic on the left and click <strong>Generate Full Article</strong>.<br>The local AI will craft an SEO-optimized, publication-ready piece.</p>
+                    <div class="sample-pills">
+                        <span>Try:</span>
+                        <button type="button" onclick="loadSampleTopic('Modern Microservices Architecture in 2026')">Microservices in 2026</button>
+                        <button type="button" onclick="loadSampleTopic('Building Production RAG Systems with Vector Databases')">Production RAG</button>
+                        <button type="button" onclick="loadSampleTopic('The Zero-Trust Security Paradigm for Cloud Native Apps')">Zero-Trust Security</button>
+                    </div>
+                </div>
+
+                <article class="rendered-article" id="renderedArticle" style="display:none;"></article>
+            </div>
+
+            <!-- View 2: Raw Markdown Editor -->
+            <div class="canvas-body" id="canvasMarkdown" style="display:none;">
+                <textarea id="markdownEditor" class="markdown-textarea" placeholder="Markdown will appear here..."></textarea>
+            </div>
+
+            <!-- View 3: SEO & Readability Insights -->
+            <div class="canvas-body" id="canvasInsights" style="display:none;">
+                <div class="insights-container">
+                    <div class="insight-card">
+                        <h3>📊 Content Architecture Breakdown</h3>
+                        <div class="insights-grid">
+                            <div class="insight-box">
+                                <span class="box-label">Total Words</span>
+                                <span class="box-value" id="insightWords">0</span>
+                            </div>
+                            <div class="insight-box">
+                                <span class="box-label">Sentence Count</span>
+                                <span class="box-value" id="insightSentences">0</span>
+                            </div>
+                            <div class="insight-box">
+                                <span class="box-label">Character Count</span>
+                                <span class="box-value" id="insightChars">0</span>
+                            </div>
+                            <div class="insight-box">
+                                <span class="box-label">Readability Grade</span>
+                                <span class="box-value" id="insightGrade">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="insight-card">
+                        <h3>🔍 Search Optimization Checklist</h3>
+                        <ul class="checklist">
+                            <li id="checkH1">✓ H1 Primary Title Present</li>
+                            <li id="checkSubheads">✓ H2/H3 Section Architecture</li>
+                            <li id="checkTakeaways">✓ Key Takeaways Callout Included</li>
+                            <li id="checkFAQ">✓ Schema-Ready FAQ Included</li>
+                            <li id="checkLength">✓ Optimal Long-Form Word Count</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- History Drawer Modal -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Saved Articles & Draft History</h3>
+                <button class="modal-close" onclick="closeHistoryModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="historyList">
+                <p class="history-empty">Loading articles...</p>
+            </div>
+        </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Copied to clipboard!</div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
 </body>
-
 </html>

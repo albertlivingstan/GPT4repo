@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, jsonify
 from modules.chatbot import EcommerceChatbot
 
@@ -21,4 +22,6 @@ def products():
     return jsonify(bot.products.to_dict(orient="records"))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5001))
+    app.run(debug=True, port=port)
+

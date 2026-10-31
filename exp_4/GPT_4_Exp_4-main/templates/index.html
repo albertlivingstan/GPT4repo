@@ -1,172 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Personalized Recommendation System</title>
-
+    <title>PathFinder AI — Explainable Learning Recommendation Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body class="pathfinder-app">
 
-<body>
-
-    <div class="container">
-
-        <h1>🤖 Personalized Recommendation System</h1>
-        <p class="subtitle">
-            Get AI-powered learning recommendations based on your interests and goals.
-        </p>
-
-        <!-- USER PROFILE -->
-        <div class="card">
-
-            <h2>👤 User Profile</h2>
-
-            <div class="form-grid">
-
-                <div>
-                    <label>Name</label>
-                    <input type="text" id="name" placeholder="Enter your name">
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 </div>
-
                 <div>
-                    <label>Age</label>
-                    <input type="number" id="age" placeholder="Enter your age">
+                    <span class="brand-name">PathFinder<span class="brand-badge">AI</span></span>
+                    <span class="brand-sub">Explainable Learning Recommendations & Curriculum Studio</span>
                 </div>
-
-                <div>
-                    <label>Educational / Professional Background</label>
-                    <input type="text" id="background" placeholder="Example: Computer Science">
-                </div>
-
-                <div>
-                    <label>Interests</label>
-                    <input type="text" id="interests" placeholder="Example: AI, Python">
-                </div>
-
-                <div>
-                    <label>Skill Level</label>
-                    <select id="skill_level">
-                        <option value="">Select skill level</option>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label>Preferred Category / Type</label>
-                    <input type="text" id="preference" placeholder="Example: Practical learning">
-                </div>
-
-                <div>
-                    <label>Goal</label>
-                    <input type="text" id="goal" placeholder="Example: Learn AI">
-                </div>
-
-                <div>
-                    <label>Number of Recommendations</label>
-                    <input type="number" id="num_items" value="5" min="1" max="10">
-                </div>
-
             </div>
-
-            <button onclick="generateRecommendations()">
-                🚀 Generate Recommendations
-            </button>
-            <button onclick="resetApplication()">
-                🔄 New User
-            </button>
-
+            <div class="status-chip">
+                <span class="pulse-dot"></span>
+                <span>Ollama JSON Engine Active</span>
+            </div>
         </div>
 
-
-        <!-- LOADING -->
-        <div id="loading" class="loading">
-            Generating personalized recommendations...
-        </div>
-
-
-        <!-- RECOMMENDATIONS -->
-        <div id="recommendationSection" class="card hidden">
-
-            <h2>⭐ Personalized Recommendations</h2>
-
-            <div id="recommendations"></div>
-        <button onclick="showExplanations()">
-            💡 Explain Recommendations
-        </button>
-
-        <div id="explanations" class="hidden"></div>
-
-
-        </button>
-
-        </div>
-        <!-- PROFILE -->
-        <div id="profileSection" class="card hidden">
-            <h2>👤 User Profile</h2>
-            <div id="profileDetails"></div>
-
-        </div>
-
-
-        <!-- FEEDBACK -->
-        <div id="feedbackSection" class="card hidden">
-
-            <h2>🔄 Refine Recommendations</h2>
-
-            <p>
-                Tell the system what you prefer or what you want to avoid.
-            </p>
-
-            <textarea
-                id="feedback"
-                placeholder="Example: I prefer Artificial Intelligence and I do not want Web Development resources."
-            ></textarea>
-
-            <button onclick="refineRecommendations()">
-                🔄 Refine Recommendations
+        <div class="nav-right">
+            <button class="nav-btn" onclick="saveToSyllabus()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Export Syllabus
             </button>
-
-            <button onclick="saveRecommendations()">
-                💾 Save Recommendations
-            </button>
-            <button onclick="showProfile()">
-                👤 Show Profile
-            </button>
-
+            <div class="user-pill">STUDIO v2.0</div>
         </div>
+    </header>
 
+    <main class="main-layout">
+        <!-- Hero Strip -->
+        <section class="hero-strip">
+            <div>
+                <span class="eyebrow">XAI CURRICULUM INTELLIGENCE</span>
+                <h2>Personalized Career & Learning Pathway Recommender</h2>
+                <p>Synthesizes demographic baselines, technical goals, and learning format preferences to generate transparently scored curriculum roadmaps.</p>
+            </div>
+            <!-- Quick Preset Personas -->
+            <div class="persona-presets">
+                <span class="preset-label">⚡ Sample Personas:</span>
+                <button type="button" class="preset-chip" onclick="loadPersona(0)">🤖 AI Engineer</button>
+                <button type="button" class="preset-chip" onclick="loadPersona(1)">📊 Data Analyst</button>
+                <button type="button" class="preset-chip" onclick="loadPersona(2)">☁️ Cloud Architect</button>
+            </div>
+        </section>
+
+        <!-- Two Column Studio -->
+        <div class="workspace-grid">
+            <!-- Left Panel: User Profile Intake -->
+            <section class="card profile-panel">
+                <div class="panel-header">
+                    <div class="step-num">01</div>
+                    <div>
+                        <h3>Learner Persona & Target Goals</h3>
+                        <p class="panel-desc">Configure your background and learning aspirations.</p>
+                    </div>
+                </div>
+
+                <form id="profileForm" onsubmit="handleRecommend(event)">
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="req">*</span></label>
+                            <input type="text" id="name" placeholder="e.g. Alex Chen" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" placeholder="26" value="26">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="background">Educational / Professional Background</label>
+                        <input type="text" id="background" placeholder="e.g. Computer Science B.S., 2 years backend Go/Python" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interests">Primary Technical Interests</label>
+                        <input type="text" id="interests" placeholder="e.g. LLMs, Vector Databases, System Architecture" required>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="skill_level">Current Skill Level</label>
+                            <select id="skill_level">
+                                <option value="Beginner">Beginner — Starting Out</option>
+                                <option value="Intermediate" selected>Intermediate — Hands-on Experience</option>
+                                <option value="Advanced">Advanced — Production Ready</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="num_items">Recommendation Count</label>
+                            <select id="num_items">
+                                <option value="3">Top 3 Curated Resources</option>
+                                <option value="4" selected>Top 4 Core Recommendations</option>
+                                <option value="5">Top 5 Comprehensive Pathway</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preference">Learning Style Preference</label>
+                        <input type="text" id="preference" placeholder="e.g. Hands-on projects, open-source code repos" value="Hands-on project tutorials and architecture breakdowns">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goal">Target Milestone / Career Goal <span class="req">*</span></label>
+                        <textarea id="goal" rows="3" placeholder="e.g. Transition into an Applied AI Engineer role building real-time RAG pipelines" required>Transition into an Applied AI Engineer role building real-time RAG pipelines</textarea>
+                    </div>
+
+                    <button type="submit" class="cta-btn" id="generateBtn">
+                        <span class="btn-text">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            Generate Learning Pathway
+                        </span>
+                        <span class="btn-spinner" style="display:none;">
+                            <span class="spinner"></span> Synthesizing Recommendations...
+                        </span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Right Panel: Recommendation Cards -->
+            <section class="card results-panel">
+                <div class="panel-header">
+                    <div class="step-num step-purple">02</div>
+                    <div>
+                        <h3>Curated Pathway & Rationale</h3>
+                        <p class="panel-desc">Algorithmic scoring, transparent reasoning, and feedback refinement.</p>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">🎯</div>
+                    <h4>No Learning Path Formulated Yet</h4>
+                    <p>Complete your profile on the left or select a <strong>Sample Persona</strong> above to see AI-ranked learning recommendations.</p>
+                </div>
+
+                <!-- Results Output -->
+                <div class="recommendations-container" id="resultsContent" style="display:none;">
+                    <div class="results-meta-bar">
+                        <span class="badge-active">● Active Curriculum</span>
+                        <button type="button" class="btn-refine" onclick="openRefineModal()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            Refine with Feedback
+                        </button>
+                    </div>
+
+                    <div id="recList" class="rec-list"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Feedback Refinement Modal Drawer -->
+    <div class="modal-overlay" id="refineModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Human-in-the-Loop Refinement</h3>
+                <button type="button" class="close-btn" onclick="closeRefineModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">Tell the AI how you would like to adjust the recommendations (e.g. <em>"Focus exclusively on free open-source GitHub repositories"</em> or <em>"Suggest more beginner-friendly math primers"</em>):</p>
+                <textarea id="feedbackText" rows="4" placeholder="Enter your critique or desired curriculum adjustments..."></textarea>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeRefineModal()">Cancel</button>
+                    <button type="button" class="btn-submit-refine" id="submitRefineBtn" onclick="submitRefinement()">
+                        Apply Refinement
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-<div class="card">
 
-    <h2>💬 Intent Detection</h2>
-
-    <p>
-        Enter a command such as "show my profile",
-        "explain recommendations", or "save recommendations".
-    </p>
-
-    <input
-        type="text"
-        id="intentInput"
-        placeholder="Enter your command..."
-    >
-
-    <button onclick="detectUserIntent()">
-        🔍 Detect Intent
-    </button>
-
-    <div id="intentResult"></div>
-
-</div>
-
+    <!-- Toast -->
+    <div class="toast" id="toast">Saved to recommendations.txt!</div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
 </body>
-
 </html>

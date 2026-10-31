@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+.venv*/
+venv/
+env/
+ENV/
+*.env
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs & Temporary outputs
+logs/
+*.log
+outputs/
+exp_*/GPT*/outputs/
+exp_4/GPT_4_Exp_4-main/recommendations.txt
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Streamlit temporary config
+.streamlit/

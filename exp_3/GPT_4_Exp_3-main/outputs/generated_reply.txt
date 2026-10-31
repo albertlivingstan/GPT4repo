@@ -57,3 +57,107 @@ Best regards,
 
 This rewritten version aims to convey a sense of empathy and understanding for the customer's frustration, while still conveying the necessary information and updates.
 Summary: The customer's order has not arrived, and they are requesting assistance with the delivery. The email asks for help with resolving the issue and receiving their order.
+
+==================================================
+Customer: albert
+Subject: Delay in Order Delivery
+Intent: Delivery Issue
+Tone: Professional
+Customer Email: Dear Support Team,
+
+I placed an order five days ago, but I haven’t received it yet. The expected delivery date was yesterday, and I haven’t received any updates about the delay.
+
+Could you please check my order status and let me know when I can expect delivery?
+
+I would appreciate a quick response.
+Generated Reply:
+Here is a rewritten version of the customer support email in a professional tone:
+
+Subject: Re: Delay in Order Delivery
+
+Dear Albert,
+
+Thank you for reaching out to us regarding the delay in your order. We apologize for any inconvenience this has caused and appreciate you bringing it to our attention.
+
+We are investigating the status of your shipment and will provide you with an update as soon as possible. We will also notify you once the delivery is processed and you can expect to receive your order.
+
+Please be assured that we are taking prompt action to resolve the issue and appreciate your patience and understanding.
+
+We value your business and will be in touch soon to provide you with a further update.
+
+Best regards,
+[Your Name]
+Customer Support Team
+Summary: The customer emailed to inquire about the status of their order, which was placed 5 days ago. They haven't received any updates about a delay and are concerned about the expected delivery date, which was supposed to be yesterday.
+
+==================================================
+Customer: albert
+Subject: Delay in Order Delivery
+Intent: Delivery Issue
+Tone: Professional
+Customer Email: Dear Support Team,
+
+I placed an order five days ago, but I haven’t received it yet. The expected delivery date was yesterday, and I haven’t received any updates about the delay.
+
+Could you please check my order status and let me know when I can expect delivery?
+
+I would appreciate a quick response.
+Generated Reply:
+Here's a rewritten version of the customer support email in a professional tone:
+
+Subject: Re: Delay in Order Delivery
+
+Dear Albert,
+
+Thank you for bringing this matter to our attention. We apologize for the delay in the delivery of your order and appreciate your patience and understanding.
+
+Our team is currently investigating the cause of the delay and is working to resolve the issue as quickly as possible. We will provide you with a detailed update on the expected delivery date as soon as possible.
+
+Please be assured that we are taking all necessary steps to rectify the situation and ensure that your order is delivered to you in a timely manner.
+
+Thank you for your continued patience and understanding.
+
+Best regards,
+[Your Name]
+
+I made the following changes to maintain the same meaning and accuracy:
+
+* Changed the phrase "Thank you for reaching out" to "Thank you for bringing this matter to our attention" to make the language more formal and professional.
+* Added a phrase "We apologize for the delay in the delivery of your order" to make the apology more explicit and sincere.
+* Changed the phrase "We are doing everything possible" to "We are taking all necessary steps" to use more formal and professional language.
+* Removed the phrase "You can expect a more detailed update" as it was not necessary and could be inferred from the sentence "We will provide you with a detailed update on the expected delivery date as soon as possible".
+* Changed the closing phrase "Thank you for your understanding" to "Thank you for your continued patience and understanding" to make the tone more formal and professional.
+Summary: The customer's order was placed 5 days ago with an expected delivery date yesterday. They haven't received updates about the delay and are concerned. They request a quick response from the support team to check their order status and receive an estimated delivery date.
+
+==================================================
+Customer: albert
+Subject: Delay in Order Delivery
+Intent: Delivery Issue
+Tone: Professional
+Customer Email: My order is delayed, and I haven’t received any delivery updates. Could you please help?
+Generated Reply:
+Here's a rewritten version of the email in a professional tone:
+
+Subject: Re: Delay in Order Delivery
+
+Dear Albert,
+
+We appreciate you contacting us regarding the delay in your order delivery. We apologize for any inconvenience this has caused and are committed to resolving the issue as quickly as possible.
+
+Our team is actively investigating the status of your shipment and is working to expedite the delivery process. We will provide you with a revised estimated delivery date as soon as it is available.
+
+If you have any further questions or concerns, please do not hesitate to reach out to us. Our customer support team is here to assist you and provide any necessary information.
+
+Thank you for your patience and understanding.
+
+Sincerely,
+[Your Name]
+
+Changes made:
+
+* Added a more formal greeting and closing
+* Used more precise language to convey a sense of urgency and commitment to resolving the issue
+* Removed the phrase "we appreciate you bringing this to our attention" as it can come across as somewhat passive-aggressive
+* Replaced "we will keep you updated" with "we will provide you with a revised estimated delivery date" to make the language more concise and direct
+* Added the phrase "our customer support team" to make it clear that there is a dedicated team available to assist with any questions or concerns.
+Summary: The customer is informing the sender that their order is delayed and hasn't received any delivery updates. They request assistance in resolving the issue.
